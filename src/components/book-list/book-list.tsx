@@ -11,6 +11,8 @@ import { Book } from "../../services/book-service";
 import { ArticleState } from "../../reducers";
 import { BookService } from "../app/app";
 
+import "./book-list.css";
+
 interface BookListProps {
     bookServiceContext: BookService
 }
@@ -25,7 +27,7 @@ const BookList: React.FC<BookListProps> = ({ bookServiceContext }): JSX.Element 
     }, [bookServiceContext, dispatch]);
 
     return (
-        <ul>
+        <ul className="book-list">
             { books.length !== 0 && books.map(( book ) => {
                 return (
                     <li key={ book.id }>
