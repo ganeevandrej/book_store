@@ -1,3 +1,12 @@
+.wrapped {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100px;
+    margin: 0 auto;
+
+}
+
 .lds-ripple {
     display: inline-block;
     position: relative;

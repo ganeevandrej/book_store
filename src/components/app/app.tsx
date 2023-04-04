@@ -2,14 +2,14 @@ import React from 'react';
 import { Route, Routes } from "react-router-dom";
 
 import { Header } from "../header";
-import { ShoppingCartTable } from "../shopping-cart-table";
 import { HomePage } from "../pages/home-page";
 import { CartPage } from "../pages/cart-page";
 
 import { Book } from "../../services/book-service";
 
 export type BookService = {
-    getBooks: () => Book[],
+    _data: Book[]
+    getBooks: () => Promise<Book[]>,
 }
 
 export const App: React.FC = (): JSX.Element => {
@@ -20,7 +20,6 @@ export const App: React.FC = (): JSX.Element => {
                 <Route path="/" element={ <HomePage /> } />
                 <Route path="/cart" element={ <CartPage /> } />
             </Routes>
-            <ShoppingCartTable />
         </main>
     );
 }
