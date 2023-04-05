@@ -1,10 +1,4 @@
-export interface Book {
-    id: number,
-    title: string,
-    author: string,
-    price: number,
-    coverImage: string
-}
+import { BookType } from "../reducers";
 
 export class BookStoreService {
 
@@ -25,7 +19,7 @@ export class BookStoreService {
         }
     ]
 
-    getBooks(): Promise<Book[]> {
+    getBooks(): Promise<BookType[]> {
         return new Promise((resolve, reject) => {
             setTimeout( () => {
                 if(Math.random() > 0.75) {

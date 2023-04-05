@@ -5,11 +5,11 @@ import { Header } from "../header";
 import { HomePage } from "../pages/home-page";
 import { CartPage } from "../pages/cart-page";
 
-import { Book } from "../../services/book-service";
+import { BookType } from "../../reducers";
 
 export type BookService = {
-    _data: Book[]
-    getBooks: () => Promise<Book[]>,
+    _data: BookType[]
+    getBooks: () => Promise<BookType[]>,
 }
 
 export const App: React.FC = (): JSX.Element => {

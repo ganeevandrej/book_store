@@ -20,7 +20,7 @@ interface BookListProps {
 }
 
 const BookList: React.FC<BookListProps> = ({ bookServiceContext }): JSX.Element => {
-    const { body: books, loading, error } = useSelector((state: ArticleState) => state);
+    const { body: books, loading, error } = useSelector((state: ArticleState) => state.bookList);
     const dispatch = useDispatch();
 
     useEffect(() => {

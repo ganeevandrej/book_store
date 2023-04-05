@@ -12,3 +12,12 @@
     margin-left: 5px;
     margin-top: 5px;
 }
+
+.cntr {
+    text-align: center;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+}

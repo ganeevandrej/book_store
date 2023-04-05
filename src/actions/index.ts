@@ -1,30 +1,60 @@
-import { DETCH_BOOKS_REQUEST, FETCH_BOOKS_FAILURE, FETCH_BOOKS_SUCCESS } from "../action-types";
-import { ArticleAction } from "../reducers";
-
-import { Book } from "../services/book-service";
+import {
+    FETCH_BOOKS_REQUEST,
+    FETCH_BOOKS_FAILURE,
+    FETCH_BOOKS_SUCCESS,
+    BOOK_REMOVED_FROM_CART,
+    ALL_BOOKS_REMOVED_FROM_CART, BOOK_ADDED_TO_CART
+} from "../action-types";
+import { BookType } from "../reducers";
 import { AnyAction, Dispatch } from "redux";
-import {BookService} from "../components/app/app";
+import { BookService } from "../components/app/app";
+import {
+    allBooksRemovedFromCartAction,
+    bookAddedToCartAction,
+    bookRemovedFromCartAction,
+    booksErrorAction, booksLoadedAction, booksRequestedAction
+} from "./types";
 
-export type DispatchType = (args: ArticleAction) => ArticleAction;
 
-export const booksLoaded = (newBooks: Book[]): ArticleAction => {
+export const booksLoaded = (newBooks: BookType[]): booksLoadedAction => {
     return {
         type: FETCH_BOOKS_SUCCESS,
         payload: newBooks
     }
 }
 
-export const booksRequested = (): ArticleAction => {
+export const booksRequested = (): booksRequestedAction => {
     return {
-        type: DETCH_BOOKS_REQUEST
+        type: FETCH_BOOKS_REQUEST
     }
 }
 
-export const booksError = (): ArticleAction => {
+export const booksError = (): booksErrorAction => {
     return {
         type: FETCH_BOOKS_FAILURE
     }
 }
+
+export const bookAddedToCart = (bookId: number): bookAddedToCartAction => {
+    return {
+        type: BOOK_ADDED_TO_CART,
+        payload: bookId
+    };
+};
+
+export const bookRemovedFromCart = (bookId: number): bookRemovedFromCartAction => {
+    return {
+        type: BOOK_REMOVED_FROM_CART,
+        payload: bookId
+    };
+};
+
+export const allBooksRemovedFromCart = (bookId: number): allBooksRemovedFromCartAction => {
+    return {
+        type: ALL_BOOKS_REMOVED_FROM_CART,
+        payload: bookId
+    };
+};
 
 export const fetchBooks = (dispatch: Dispatch<AnyAction>, bookServiceContext: BookService) => {
     dispatch(booksRequested());
