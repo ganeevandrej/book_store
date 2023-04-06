@@ -6,6 +6,17 @@ export interface BookType {
     coverImage: string
 }
 
+export interface bookListReducerState {
+    body: BookType[],
+    loading: boolean,
+    error: boolean;
+}
+
+export interface shoppingCartReducerState {
+    cartItems: ItemCartType[],
+    orderTotal: number
+}
+
 export interface ItemCartType {
     id: number,
     count: number,
@@ -14,13 +25,6 @@ export interface ItemCartType {
 }
 
 export interface ArticleState {
-    bookList: {
-        body: BookType[],
-        loading: boolean,
-        error: boolean;
-    },
-    shoppingCart: {
-        cartItems: ItemCartType[],
-        orderTotal: number
-    }
+    bookList: bookListReducerState,
+    shoppingCart: shoppingCartReducerState
 }

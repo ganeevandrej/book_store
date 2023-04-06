@@ -1,5 +1,10 @@
 import { BookType } from "../reducers/types";
 
+export interface BookStoreServiceType {
+    _data: BookType[],
+    getBooks: () => Promise<BookType[]>
+}
+
 export class BookStoreService {
 
     _data = [

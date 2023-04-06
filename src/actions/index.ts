@@ -36,24 +36,27 @@ export const booksError = (): booksErrorAction => {
     }
 }
 
-export const bookAddedToCart = (bookId: number): bookAddedToCartAction => {
+export const bookAddedToCart = (bookId: number, bookList: BookType[]): bookAddedToCartAction => {
     return {
         type: BOOK_ADDED_TO_CART,
-        payload: bookId
+        payload: bookId,
+        bookList
     };
 };
 
-export const bookRemovedFromCart = (bookId: number): bookRemovedFromCartAction => {
+export const bookRemovedFromCart = (bookId: number, bookList: BookType[]): bookRemovedFromCartAction => {
     return {
         type: BOOK_REMOVED_FROM_CART,
-        payload: bookId
+        payload: bookId,
+        bookList
     };
 };
 
-export const allBooksRemovedFromCart = (bookId: number): allBooksRemovedFromCartAction => {
+export const allBooksRemovedFromCart = (bookId: number, bookList: BookType[]): allBooksRemovedFromCartAction => {
     return {
         type: ALL_BOOKS_REMOVED_FROM_CART,
-        payload: bookId
+        payload: bookId,
+        bookList
     };
 };
 

@@ -1,12 +1,14 @@
 import React from "react";
 
 import { BookStoreServiceConsumer } from "../book-store-service-context";
+import { BookStoreServiceType } from "../../services/book-service";
 
-interface gjgfj {
-    bookServiceContext: any,
+interface withBookServiceContextType {
+    bookServiceContext: BookStoreServiceType,
 }
 
-export const withBookServiceContext = () => <T extends gjgfj>( Wrapped: React.ComponentType<T>) => {
+export const withBookServiceContext = () => <T extends withBookServiceContextType>(
+    Wrapped: React.ComponentType<T>)  => {
     return (props: Omit<T, 'bookServiceContext'>) => {
         return (
             <BookStoreServiceConsumer>

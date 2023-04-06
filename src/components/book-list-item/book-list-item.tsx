@@ -1,4 +1,5 @@
 import React from "react";
+import { store } from "../../store";
 import { useDispatch } from "react-redux";
 
 import { bookAddedToCart } from "../../actions";
@@ -12,6 +13,7 @@ interface BookListItemProps {
 
 export const BookListItem: React.FC<BookListItemProps> = ({ book }): JSX.Element => {
     const dispatch = useDispatch();
+    const bookList = store.getState().bookList.body;
 
     const { coverImage, title, author, price, id } = book;
 
@@ -25,7 +27,7 @@ export const BookListItem: React.FC<BookListItemProps> = ({ book }): JSX.Element
                 <div className="book-author">{ author }</div>
                 <div className="book-price">${ price }</div>
                 <button
-                    onClick={() => dispatch(bookAddedToCart(id))}
+                    onClick={() => dispatch(bookAddedToCart(id, bookList))}
                     className="btn btn-info add-to-cart"
                 >
                     Add to cart

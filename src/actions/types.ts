@@ -22,15 +22,18 @@ export type booksErrorAction = {
 }
 export type bookAddedToCartAction = {
     type: typeof BOOK_ADDED_TO_CART,
-    payload: number
+    payload: number,
+    bookList: BookType[]
 }
 export type bookRemovedFromCartAction = {
     type: typeof BOOK_REMOVED_FROM_CART,
-    payload: number
+    payload: number,
+    bookList: BookType[]
 }
 export type allBooksRemovedFromCartAction = {
     type: typeof ALL_BOOKS_REMOVED_FROM_CART,
-    payload: number
+    payload: number,
+    bookList: BookType[]
 }
 
 export type bookListTypes = booksLoadedAction | booksRequestedAction | booksErrorAction;
