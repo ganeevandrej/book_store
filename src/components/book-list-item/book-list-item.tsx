@@ -3,13 +3,9 @@ import { store } from "../../store";
 import { useDispatch } from "react-redux";
 
 import { bookAddedToCart } from "../../actions";
-import { BookType } from "../../reducers/types";
+import { BookListItemProps } from "../types";
 
 import "./book-list-item.css";
-
-interface BookListItemProps {
-    book: BookType
-}
 
 export const BookListItem: React.FC<BookListItemProps> = ({ book }): JSX.Element => {
     const dispatch = useDispatch();

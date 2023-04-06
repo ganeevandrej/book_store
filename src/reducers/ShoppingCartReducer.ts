@@ -1,10 +1,9 @@
 import { ALL_BOOKS_REMOVED_FROM_CART,  BOOK_ADDED_TO_CART,  BOOK_REMOVED_FROM_CART, } from "../action-types";
 import { shoppingCartTypes } from "../actions/types";
-import {BookType, ItemCartType, shoppingCartReducerState} from "./types";
+import { BookType, ItemCartType, shoppingCartReducerState } from "./types";
 
 const initialState: shoppingCartReducerState = {
     cartItems: [],
-    orderTotal: 0
 }
 
 const updateCartItems = (cartItems: ItemCartType[], newItem: ItemCartType, index: number) => {
@@ -25,7 +24,6 @@ const updateCartItems = (cartItems: ItemCartType[], newItem: ItemCartType, index
         ]
     }
 }
-
 const updateItem = (book: BookType, itemFromCart: ItemCartType, action: number) => {
     if(itemFromCart) {
         const { id, title, count, total } = itemFromCart;
@@ -45,7 +43,6 @@ const updateItem = (book: BookType, itemFromCart: ItemCartType, action: number) 
         }
     }
 }
-
 const updateOrder = (state: shoppingCartReducerState, itemId: number, action: number, bookList: BookType[]) => {
     const cartItems = state.cartItems;
     const book = bookList.find(({ id }) => id === itemId);
@@ -55,7 +52,6 @@ const updateOrder = (state: shoppingCartReducerState, itemId: number, action: nu
 
     return {
         cartItems: updateCartItems(cartItems, newItemCart, bookFromCartIndex),
-        orderTotal: 0
     }
 }
 

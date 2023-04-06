@@ -14,7 +14,6 @@ export interface bookListReducerState {
 
 export interface shoppingCartReducerState {
     cartItems: ItemCartType[],
-    orderTotal: number
 }
 
 export interface ItemCartType {

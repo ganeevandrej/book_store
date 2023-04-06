@@ -10,39 +10,32 @@ import { ErrorIndicator } from "../error-indicator";
 import { fetchBooks } from "../../actions";
 
 import { ArticleState } from "../../reducers/types";
-import { BookService } from "../app/app";
+import { BookListProps } from "../types";
 
 import "./book-list.css";
-
-interface BookListProps {
-    bookServiceContext: BookService
-}
 
 const BookList: React.FC<BookListProps> = ({ bookServiceContext }): JSX.Element => {
     const { body: books, loading, error } = useSelector((state: ArticleState) => state.bookList);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        fetchBooks(dispatch, bookServiceContext);
+        fetchBooks(bookServiceContext, dispatch);
     }, [bookServiceContext, dispatch]);
 
-    if(loading) {
-        return <Spinner />
-    }
+    const renderBookList = books.length !== 0 && books.map(( book ) => {
+        return (
+            <li key={ book.id }>
+                <BookListItem book={ book } />
+            </li>
+        );
+    })
 
-    if(error) {
-        return <ErrorIndicator />
-    }
+    const content_1 = loading ? <Spinner /> : renderBookList;
+    const content_2 = error ? <ErrorIndicator /> : content_1;
 
     return (
         <ul className="book-list">
-            { books.length !== 0 && books.map(( book ) => {
-                return (
-                    <li key={ book.id }>
-                        <BookListItem book={ book } />
-                    </li>
-                );
-            }) }
+            { content_2 }
         </ul>
     );
 }

@@ -1,67 +1,24 @@
 import React from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { store } from "../../store";
+import { useSelector } from "react-redux";
 
-import { allBooksRemovedFromCart, bookAddedToCart, bookRemovedFromCart } from "../../actions";
+import { Table } from "./table";
+
 import { ArticleState } from "../../reducers/types";
 
 import './shopping-cart-table.css';
 
 export const ShoppingCartTable: React.FC = (): JSX.Element => {
-    const { cartItems, orderTotal } = useSelector((state: ArticleState) => state.shoppingCart);
-    const dispatch = useDispatch();
-    const bookList = store.getState().bookList.body;
-
-    const renderItemCart = cartItems.map((
-        {id, total, title, count}, idx) => {
-        return  (
-            <tr key={id}>
-                <td className="cntr">{ idx + 1 }</td>
-                <td className="cntr">{ title }</td>
-                <td className="cntr">{ count }</td>
-                <td className="cntr">${ total }</td>
-                <td>
-                    <div className="actions">
-                        <button
-                            onClick={() => dispatch(bookRemovedFromCart(id, bookList))}
-                            className="btn btn-outline-warning btn-sm float-right">
-                            <i className="fa fa-minus-circle" />
-                        </button>
-                        <button
-                            onClick={() => dispatch(bookAddedToCart(id, bookList))}
-                            className="btn btn-outline-success btn-sm float-right">
-                            <i className="fa fa-plus-circle" />
-                        </button>
-                        <button
-                            onClick={() => dispatch(allBooksRemovedFromCart(id, bookList))}
-                            className="btn btn-outline-danger btn-sm float-right">
-                            <i className="fa fa-trash-o" />
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        );
-    })
+    const { cartItems } = useSelector((state: ArticleState) => state.shoppingCart);
+    const totalPrice = cartItems.reduce((prevRes,{total}) => prevRes + total, 0);
 
     return (
         <div className="shopping-cart-table">
             <h2>Your Order</h2>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th  className="cntr">#</th>
-                        <th  className="cntr">Item</th>
-                        <th  className="cntr">Count</th>
-                        <th  className="cntr">Price</th>
-                        <th className="cntr">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    { renderItemCart }
-                </tbody>
-            </table>
+
+            <Table cartItems={cartItems} />
+
             <div className="total">
-                Total: ${ orderTotal }
+                Total: ${ totalPrice }
             </div>
         </div>
     );
