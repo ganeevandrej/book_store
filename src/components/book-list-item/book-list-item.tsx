@@ -1,8 +1,8 @@
 import React from "react";
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 
-import {bookAddedToCart} from "../../actions";
-import { BookType } from "../../reducers";
+import { bookAddedToCart } from "../../actions";
+import { BookType } from "../../reducers/types";
 
 import "./book-list-item.css";
 

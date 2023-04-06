@@ -6,7 +6,8 @@ import {
     FETCH_BOOKS_REQUEST,
     FETCH_BOOKS_SUCCESS
 } from "../action-types";
-import { BookType } from "../reducers";
+import { BookType } from "../reducers/types";
+
 
 
 export type booksLoadedAction = {

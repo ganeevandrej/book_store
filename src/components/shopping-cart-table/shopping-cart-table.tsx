@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
 import { allBooksRemovedFromCart, bookAddedToCart, bookRemovedFromCart } from "../../actions";
-import { ArticleState } from "../../reducers";
+import { ArticleState } from "../../reducers/types";
 
 import './shopping-cart-table.css';
 
@@ -21,9 +21,9 @@ export const ShoppingCartTable: React.FC = (): JSX.Element => {
                 <td>
                     <div className="actions">
                         <button
-                            onClick={() => dispatch(allBooksRemovedFromCart(id))}
-                            className="btn btn-outline-danger btn-sm float-right">
-                            <i className="fa fa-trash-o" />
+                            onClick={() => dispatch(bookRemovedFromCart(id))}
+                            className="btn btn-outline-warning btn-sm float-right">
+                            <i className="fa fa-minus-circle" />
                         </button>
                         <button
                             onClick={() => dispatch(bookAddedToCart(id))}
@@ -31,9 +31,9 @@ export const ShoppingCartTable: React.FC = (): JSX.Element => {
                             <i className="fa fa-plus-circle" />
                         </button>
                         <button
-                            onClick={() => dispatch(bookRemovedFromCart(id))}
-                            className="btn btn-outline-warning btn-sm float-right">
-                            <i className="fa fa-minus-circle" />
+                            onClick={() => dispatch(allBooksRemovedFromCart(id))}
+                            className="btn btn-outline-danger btn-sm float-right">
+                            <i className="fa fa-trash-o" />
                         </button>
                     </div>
                 </td>

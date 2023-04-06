@@ -5,8 +5,8 @@ import {
     BOOK_REMOVED_FROM_CART,
     ALL_BOOKS_REMOVED_FROM_CART, BOOK_ADDED_TO_CART
 } from "../action-types";
-import { BookType } from "../reducers";
-import { AnyAction, Dispatch } from "redux";
+import { BookType } from "../reducers/types";
+import { Dispatch } from "redux";
 import { BookService } from "../components/app/app";
 import {
     allBooksRemovedFromCartAction,
@@ -14,6 +14,7 @@ import {
     bookRemovedFromCartAction,
     booksErrorAction, booksLoadedAction, booksRequestedAction
 } from "./types";
+import {ArticleAction} from "../store";
 
 
 export const booksLoaded = (newBooks: BookType[]): booksLoadedAction => {
@@ -56,7 +57,7 @@ export const allBooksRemovedFromCart = (bookId: number): allBooksRemovedFromCart
     };
 };
 
-export const fetchBooks = (dispatch: Dispatch<AnyAction>, bookServiceContext: BookService) => {
+export const fetchBooks = (dispatch: Dispatch<ArticleAction>, bookServiceContext: BookService) => {
     dispatch(booksRequested());
     bookServiceContext.getBooks()
         .then( (data) => { dispatch(booksLoaded(data))})

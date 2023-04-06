@@ -5,7 +5,7 @@ import { Header } from "../header";
 import { HomePage } from "../pages/home-page";
 import { CartPage } from "../pages/cart-page";
 
-import { BookType } from "../../reducers";
+import { BookType } from "../../reducers/types";
 
 export type BookService = {
     _data: BookType[]

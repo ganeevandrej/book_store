@@ -4,33 +4,7 @@ import {
     BOOK_ADDED_TO_CART, BOOK_REMOVED_FROM_CART,
     ALL_BOOKS_REMOVED_FROM_CART } from "../action-types";
 import { ArticleAction } from "../store";
-
-export interface BookType {
-    id: number,
-    title: string,
-    author: string,
-    price: number,
-    coverImage: string
-}
-
-interface ItemCartType {
-    id: number,
-    count: number,
-    title: string,
-    total: number
-}
-
-export interface ArticleState {
-    bookList: {
-        body: BookType[],
-        loading: boolean,
-        error: boolean;
-    },
-    shoppingCart: {
-        cartItems: ItemCartType[],
-        orderTotal: number
-    }
-}
+import {ArticleState, BookType, ItemCartType} from "./types";
 
 const initialState: ArticleState = {
     bookList: {
@@ -41,6 +15,62 @@ const initialState: ArticleState = {
     shoppingCart: {
         cartItems: [],
         orderTotal: 0
+    }
+}
+
+const updateCartItems = (cartItems: ItemCartType[], newItem: ItemCartType, index: number) => {
+    if(newItem.count === 0) {
+        return [
+            ...cartItems.slice(0, index),
+            ...cartItems.slice(index + 1)
+        ]
+    }
+
+    if(index < 0) {
+        return [ ...cartItems, newItem]
+    } else {
+        return [
+            ...cartItems.slice(0, index),
+            newItem,
+            ...cartItems.slice(index + 1)
+        ]
+    }
+}
+
+const updateItem = (book: BookType, itemFromCart: ItemCartType, action: number) => {
+    if(itemFromCart) {
+        const { id, title, count, total } = itemFromCart;
+
+        return {
+            id,
+            title,
+            count: count + action,
+            total: total + book.price * action
+        }
+    } else {
+        return {
+            id: book.id,
+            title: book.title,
+            count: 1,
+            total: book.price
+        }
+    }
+}
+
+const updateOrder = (state: ArticleState, itemId: number, action: number) => {
+    const cartItems = state.shoppingCart.cartItems;
+    const book = state.bookList.body.find(({ id }) => id === itemId);
+    const bookFromCartIndex = cartItems.findIndex(({ id }) => id === itemId);
+    const bookFromCart = cartItems[bookFromCartIndex];
+    let newItemCart: ItemCartType = updateItem(book!, bookFromCart, action);
+
+    return {
+        ...state,
+        ...state.bookList,
+        shoppingCart: {
+            cartItems: updateCartItems(cartItems, newItemCart, bookFromCartIndex),
+            orderTotal: 0
+        }
     }
 }
 
@@ -78,40 +108,12 @@ export const reducer = ( state: ArticleState = initialState, action: ArticleActi
                 }
             }
         case BOOK_ADDED_TO_CART:
-            const book = state.bookList.body.find((item) => item.id === action.payload);
-            let newItemCart: ItemCartType;
-
-            if (book) {
-                const { id, title, price } = book;
-                newItemCart = {
-                    id,
-                    title,
-                    count: 1,
-                    total: price * 1
-                }
-            } else {
-                newItemCart = {
-                    id: 0,
-                    title: "",
-                    count: 0,
-                    total: 0
-                }
-            }
-
-            return {
-                ...state,
-                ...state.bookList,
-                shoppingCart: {
-                    cartItems: [
-                        { ...newItemCart }
-                    ],
-                    orderTotal: 0
-                }
-            };
+            return updateOrder(state, action.payload, 1);
         case BOOK_REMOVED_FROM_CART:
-            return state;
+            return updateOrder(state, action.payload, -1);
         case ALL_BOOKS_REMOVED_FROM_CART:
-            return state;
+            const book = state.shoppingCart.cartItems.find(({ id }) => id === action.payload);
+            return updateOrder(state, action.payload, -book!.count);
         default:
             return state;
     }

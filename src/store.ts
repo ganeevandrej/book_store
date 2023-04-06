@@ -1,6 +1,8 @@
 import { createStore, Store } from "redux";
-import { ArticleState, reducer } from "./reducers";
+
+import { reducer } from "./reducers";
 import { bookListTypes, shoppingCartTypes } from "./actions/types";
+import { ArticleState } from "./reducers/types";
 
 export type DispatchType = (args: ArticleAction) => ArticleAction;
 export type ArticleAction = bookListTypes | shoppingCartTypes;

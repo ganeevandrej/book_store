@@ -1,4 +1,4 @@
-import { BookType } from "../reducers";
+import { BookType } from "../reducers/types";
 
 export class BookStoreService {
 

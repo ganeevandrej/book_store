@@ -9,11 +9,10 @@ import { ErrorIndicator } from "../error-indicator";
 
 import { fetchBooks } from "../../actions";
 
-import { ArticleState } from "../../reducers";
+import { ArticleState } from "../../reducers/types";
 import { BookService } from "../app/app";
 
 import "./book-list.css";
-
 
 interface BookListProps {
     bookServiceContext: BookService
